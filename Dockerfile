@@ -9,4 +9,5 @@ RUN apt update -y && apt upgrade -y
 RUN apt install apache2 -y
 RUN apt install php -y
 ADD ports.conf /etc/apache2/ports.conf
+RUN rm -rf /var/www/html
 ADD html /var/www/html

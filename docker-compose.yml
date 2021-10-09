@@ -5,8 +5,8 @@ services:
     image: apachesql
     environment:
       MYSQL_ROOT_PASSWORD: example
-      networks:
-        - lsio
+    networks:
+      - lsio
   phpmyadmin:
     image: phpmyadmin
     restart: always

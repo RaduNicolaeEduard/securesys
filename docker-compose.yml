@@ -6,7 +6,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: example
       networks:
-        -lsio
+        - lsio
   phpmyadmin:
     image: phpmyadmin
     restart: always

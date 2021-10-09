@@ -5,12 +5,16 @@ services:
     image: apachesql
     environment:
       MYSQL_ROOT_PASSWORD: example
-    ports:
-      - 9001:80
+      networks:
+        -lsio
   phpmyadmin:
     image: phpmyadmin
     restart: always
-    ports:
-      - 9002:80
+    networks:
+      - lsio
     links:
       - "pachedb:db"
+networks:
+  lsio:
+    external: true
+

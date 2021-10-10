@@ -1,6 +1,11 @@
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
 <link rel="stylesheet" href="styles.css">
+
+
 <?php
 include "dbcon.php"
 
@@ -52,36 +57,39 @@ include "dbcon.php"
 
                 <div class="center" style="margin-right:2em">
 
-                    <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+                    <div class="demo-card-wide mdl-card mdl-shadow--2dp" style="height:30em">
                         <div class="mdl-card__title">
                             <h2 class="mdl-card__title-text">DB Data</h2>
                         </div>
 
-                        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th class="mdl-data-table__cell--non-numeric">User Name</th>
-                                    <th>Email</th>
-                                    <th>Phone number</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $result = mysqli_query($db, "SELECT * FROM mytable");
 
-                                while ($row = mysqli_fetch_array($result)) {
-
-                                ?>
+                        <div style="overflow:auto;height:100%">
+                            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="width:100%; height:100%;">
+                                <thead>
                                     <tr>
-                                        <td class="mdl-data-table__cell--non-numeric"><?php echo $row['username']; ?></td>
-                                        <td><?php echo $row['email']; ?></td>
-                                        <td><?php echo $row['phonenum']; ?></td>
+                                        <th class="mdl-data-table__cell--non-numeric">User Name</th>
+                                        <th>Email</th>
+                                        <th>Phone number</th>
                                     </tr>
-                                <?php
-                                }
-                                ?>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $result = mysqli_query($db, "SELECT * FROM mytable");
+
+                                    while ($row = mysqli_fetch_array($result)) {
+
+                                    ?>
+                                        <tr>
+                                            <td class="mdl-data-table__cell--non-numeric"><?php echo $row['username']; ?></td>
+                                            <td><?php echo $row['email']; ?></td>
+                                            <td><?php echo $row['phonenum']; ?></td>
+                                        </tr>
+                                    <?php
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
                 <div class="center">
@@ -138,52 +146,92 @@ include "dbcon.php"
 
 
             </div>
-            <div class="center">
-                <?php
-                include "dbcon.php";
+            <div style="display:flex; justify-content:center">
 
-
-                ?>
-                <div class="demo-card-wide mdl-card mdl-shadow--2dp">
-                    <div class="mdl-card__title">
-                        <h2 class="mdl-card__title-text">Search</h2>
-                    </div>
-                    <form method="POST">
-                        <div class="center">
-                            <div class="mdl-textfield mdl-js-textfield">
-                                <input class="mdl-textfield__input" type="text" id="sample1" name="search">
-                                <label class="mdl-textfield__label" for="sample1">search</label>
+                <div class="center">
+                    <?php
+                    include "dbcon.php";
+                    ?>
+                    <div class="demo-card-wide mdl-card mdl-shadow--2dp" style="height:15em">
+                        <div class="mdl-card__title">
+                            <h2 class="mdl-card__title-text">Search</h2>
+                        </div>
+                        <form method="POST">
+                            <div class="center">
+                                <div class="mdl-textfield mdl-js-textfield">
+                                    <input class="mdl-textfield__input" type="text" id="sample1" name="search">
+                                    <label class="mdl-textfield__label" for="sample1">search</label>
+                                </div>
                             </div>
-                        </div>
-                        <div class="center">
-                            <button class="mdl-button mdl-js-button mdl-button--raised" type="submit1" name="submit1" value="submit1">
-                                Submit
-                            </button>
-                        </div>
-                    </form>
-                    <div>
-                        <?php
+                            <div class="center">
+                                <button class="mdl-button mdl-js-button mdl-button--raised" type="submit1" name="submit1" value="submit1">
+                                    Submit
+                                </button>
+                            </div>
+                        </form>
+                        <div>
+                            <?php
 
-                        if (isset($_POST['submit1'])) {
-                            $result = mysqli_query($db, "SELECT * FROM mytable WHERE username = '{$_POST['search']}'");
+                            if (isset($_POST['submit1'])) {
+                                $sql = "SELECT * FROM mytable WHERE username = '{$_POST['search']}'";
+                                $result = mysqli_query($db,  $sql);
 
-                            if (!$result) {
-                                echo "error";
-                            } else {
-                                if ($result->num_rows > 0) {
-                                    while ($row = $result->fetch_assoc()) {
-                                        echo $row['username'] . "<br>";
+
+                                if (!$result) {
+                                    echo "error";
+                                } else {
+                                    if ($result->num_rows > 0) {
+                            ?>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="center" style="margin-left:2em">
+                    <div class="demo-card-wide mdl-card mdl-shadow--2dp" style="height:15em">
+                        <div class="mdl-card__title">
+                            <h2 class="mdl-card__title-text">Search Results</h2>
+                        </div>
+                        <style>
+                            .demo-list-item {
+                                width: 300px;
+                            }
+                        </style>
+                        <div style="overflow:auto;height:100%">
+                            <ul class="demo-list-item mdl-list">
+                                <?php
+                                        while ($row = $result->fetch_assoc()) {
+                                ?>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-primary-content">
+                                            <i class="material-icons mdl-list__item-icon">person</i>
+                                            <?php echo $row['username']; ?>
+                                        </span>
+                                    </li>
+                    <?php
+                                        }
                                     }
                                 }
                             }
-                        }
+                    ?>
 
-                        mysqli_close($db);
-                        ?>
+                            </ul>
+                        </div>
+                        <div>
+
+
+                            <script type='text/javascript'>
+                                toastr.success("<?php echo $sql; ?>", "Query", {
+                                    timeOut: 5000
+                                })
+                            </script>
+                            <?php
+                            mysqli_close($db);
+                            ?>
+                        </div>
                     </div>
                 </div>
             </div>
-
 </div>
 
 </section>
@@ -216,7 +264,9 @@ include "dbcon.php"
 </div>
 <a href="https://github.com/RaduNicolaeEduard/securesys" target="_blank" id="view-source" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">View Source</a>
 <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
 </body>
+
 
 <?php
 mysqli_close($db);

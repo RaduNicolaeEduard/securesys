@@ -73,6 +73,7 @@ include "dbcon.php"
 
                                 ?>
                                     <tr>
+                                        <?php echo $row['username'] ?>
                                         <td class="mdl-data-table__cell--non-numeric"><?php echo $row['username']; ?></td>
                                         <td><?php echo $row['email']; ?></td>
                                         <td><?php echo $row['phonenum']; ?></td>

@@ -104,7 +104,7 @@ include "dbcon.php"
                         $insert = mysqli_query($db, "INSERT INTO `mytable`(`username`, `email`, `phonenum`) VALUES ('$username','$email','$phone')");
 
                         if (!$insert) {
-                            echo "error";
+                            echo $mysqli_error();
                         } else {
                             echo "<meta http-equiv='refresh' content='0'>";
                         }
@@ -178,7 +178,7 @@ include "dbcon.php"
 
 
                                 if (!$result) {
-                                    echo "error";
+                                    echo $mysqli_error();
                                 } else {
                                     if ($result->num_rows > 0) {
                             ?>

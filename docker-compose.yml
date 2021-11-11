@@ -1,19 +1,31 @@
 version: '3.1'
 
 services:
-  pachedb:
-    image: apachesql
+  securesql:
+    build: ./sql
+    image: securesql:latest
     environment:
       MYSQL_ROOT_PASSWORD: example
     networks:
       - lsio
+  secureapche:
+    build: ./apache
+    image: secureapache
+    networks:
+      - lsio
+    ports:
+       - "8003:80"
+
   phpmyadmin:
-    image: phpmyadmin
+    image: phpmyadmin:latest
     restart: always
+    ports:
+      - "8005:80"
     networks:
       - lsio
     links:
-      - "pachedb:db"
+      - "securesql:db"
+
 networks:
   lsio:
     external: true

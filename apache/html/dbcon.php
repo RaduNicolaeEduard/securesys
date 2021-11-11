@@ -1,6 +1,6 @@
 <?php
 
-$db = mysqli_connect("localhost","root","example","secure");
+$db = mysqli_connect("securesql","root","example","secure");
 
 if(!$db)
 {

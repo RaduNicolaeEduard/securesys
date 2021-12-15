@@ -7,14 +7,24 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: example
     networks:
-      - lsio
-  pachedb:
-    build: ./apache
+      - dbnet
+  secureapache:
+    build: ./csrf
     image: secureapache
     networks:
       - lsio
+      - dbnet
     ports:
        - "8003:80"
+
+  # unsecureapache:
+  #   build: ./nocsrf
+  #   image: secureapache
+  #   networks:
+  #     - lsio
+  #     - dbnet
+  #   ports:
+  #      - "8004:80"
 
   phpmyadmin:
     image: phpmyadmin:latest
@@ -23,10 +33,12 @@ services:
       - "8005:80"
     networks:
       - lsio
+      - dbnet
     links:
       - "securesql:db"
 
 networks:
   lsio:
     external: true
+  dbnet:
 

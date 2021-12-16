@@ -17,15 +17,6 @@ services:
     ports:
        - "8003:80"
 
-  # unsecureapache:
-  #   build: ./nocsrf
-  #   image: secureapache
-  #   networks:
-  #     - lsio
-  #     - dbnet
-  #   ports:
-  #      - "8004:80"
-
   phpmyadmin:
     image: phpmyadmin:latest
     restart: always
